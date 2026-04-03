@@ -35,6 +35,8 @@ public abstract class Piece {
     }
 
     public abstract Collection<Move> calculateLegalMoves(final Board board);
+    //khai báo một phương thức trừu tượng (abstract method)
+    public abstract Piece movPiece(Move move);
 
     public enum PieceType {
         PAWN("P") {
