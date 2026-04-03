@@ -22,7 +22,7 @@ public enum Alliance {
         }
         //move 1 
         @Override
-        protected Player chossePlayer(final WhitePlayer whitePlayer,
+        public Player chossePlayer(final WhitePlayer whitePlayer,
                                       final BlackPlayer blackPlayer) {
             return whitePlayer;
         }
@@ -44,7 +44,7 @@ public enum Alliance {
         }
         //move 1
         @Override
-        protected Player chossePlayer(final WhitePlayer whitePlayer,
+        public Player chossePlayer(final WhitePlayer whitePlayer,
                                       final BlackPlayer blackPlayer) {
             return blackPlayer;
         }
@@ -54,5 +54,5 @@ public enum Alliance {
     public abstract boolean isWhite();
     public abstract boolean isBlack();
     //move 1
-    protected abstract Player chossePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
+    public abstract Player chossePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
 }

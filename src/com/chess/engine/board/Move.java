@@ -25,7 +25,7 @@ public abstract class Move {
         public NormalMove(final Board board, final Piece movedPiece, final int destinationCoordinate) {
             super(board, movedPiece, destinationCoordinate);
         }
-
+        //nhiệm vụ tạo ra một bàn cờ mới sau khi một quân cờ di chuyển
         @Override
         public Board execute() {
 
