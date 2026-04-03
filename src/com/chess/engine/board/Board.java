@@ -158,5 +158,9 @@ public class Board {
             return new Board(this);
         }
     }
+    public Iterable<Move> getAllLegalMoves() {
+        return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(), this.blackPlayer.getLegalMoves()));
+
+    }
 }
 
