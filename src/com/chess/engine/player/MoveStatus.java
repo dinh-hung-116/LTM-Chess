@@ -3,23 +3,26 @@ package com.chess.engine.player;
 public enum MoveStatus {
     DONE {
         @Override
-        boolean isDone() {
+        public boolean isDone() {
             return true;
         }
     },
 
     ILLEGAL_MOVE {
         @Override
-        boolean isDone() {
+        public boolean isDone() {
             return false;
         }
     },
     LEAVES_PLAYER_IN_CHECK {
         @Override
-        boolean isDone() {
+        public boolean isDone() {
             return false;
         }
     };
-
-    abstract boolean isDone();
+    
+    //####################
+    // thêm public để có thể truy cập phương thức từ bên ngoài
+    public abstract boolean isDone();
+    //####################
 }

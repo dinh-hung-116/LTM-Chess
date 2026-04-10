@@ -15,8 +15,16 @@ public class Rook extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};
 
     public Rook(final int piecePosition, final Alliance pieceAlliance) {
-        super(PieceType.ROOK, piecePosition, pieceAlliance);
+        // dùng constructor  mới
+        super(PieceType.ROOK, piecePosition, pieceAlliance, true);
     }
+
+    //###########################################################
+    // constructor mới
+    public Rook(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+        super(PieceType.ROOK, piecePosition, pieceAlliance, isFirstMove);
+    }
+    //###########################################################
 
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {

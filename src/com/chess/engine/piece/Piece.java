@@ -21,6 +21,18 @@ public abstract class Piece {
         this.isFirstMove = false;
         this.cachedHashCode = computeHashCode();
     }
+    
+    //#######################################################################
+    // hàm khởi tạo mới được tạo trong video GUI(Part IX) để phục vụ cho Pawn
+    // có khả năng Rook và King cũng sẽ dùng hàm này cho nhập thành(Castling)
+    public Piece(PieceType pieceType, int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+        this.pieceType = pieceType;
+        this.piecePosition = piecePosition;
+        this.pieceAlliance = pieceAlliance;
+        this.isFirstMove = isFirstMove;
+        this.cachedHashCode = computeHashCode();
+    }
+    //#######################################################################
 
     //Hàm này tính toán mã băm (hash code) cho một quân cờ dựa trên các thuộc tính của nó.
     private int computeHashCode() {

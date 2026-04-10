@@ -9,13 +9,30 @@ public abstract class Move {
     final Board board;
     final Piece movedPiece;
     final int destinationCoordinate;
+    //###########################################################
+    // thêm biến này
+    final boolean isFirstMove;
+    //###########################################################
 
     public static final Move NULL_MOVE = new NullMove();
     public Move(final Board board, final Piece movedPiece, final int destinationCoordinate) {
         this.board = board;
         this.movedPiece = movedPiece;
         this.destinationCoordinate = destinationCoordinate;
+        //###########################################################
+        this.isFirstMove = (movedPiece != null) && movedPiece.isFirstMove();
+        //###########################################################
     }
+    
+    //###########################################################
+    // Constructor mới
+    public Move(Board board, int destinationCoordinate) {
+        this.board = board;
+        this.destinationCoordinate = destinationCoordinate;
+        this.movedPiece = null;
+        this.isFirstMove = false;
+    }
+    //###########################################################
 
     @Override
     public int hashCode() {
@@ -24,9 +41,13 @@ public abstract class Move {
 
         result = prime * result + this.destinationCoordinate;
         result = prime * result + this.movedPiece.hashCode();
+        //###########################################################
+        result = prime * result + this.movedPiece.getPiecePosition();
+        //###########################################################
         return result;
     }
 
+    //###########################################################
     @Override
     public boolean equals(final Object other) {
         if(this == other) {
@@ -36,9 +57,12 @@ public abstract class Move {
             return false;
         }
         final Move otherMove = (Move) other;
-        return  getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
+        return  
+                getCurrentCoordinate() == otherMove.getCurrentCoordinate() &&
+                getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
                 getMovedPiece().equals(otherMove.getMovedPiece());
     }
+    //###########################################################
 
     public int getCurrentCoordinate() {
         return this.getMovedPiece().getPiecePosition();
@@ -227,6 +251,9 @@ public abstract class Move {
             return builder.build();
         }
     }
+    //###########################################################
+    // trong vid GUI(part IX) có thêm lớp MajorMove liên quan tới en passent
+    //###########################################################
 
     public static final class KingSideCastleMove extends CastleMove {
         public KingSideCastleMove(final Board board,

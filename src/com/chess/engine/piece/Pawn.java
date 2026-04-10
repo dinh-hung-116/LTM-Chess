@@ -14,9 +14,16 @@ public class Pawn extends Piece{
     private final static int[] CANDIDATE_MOVE_COORDINATES = {8, 16, 7, 9};
 
     public Pawn(final int piecePosition, final Alliance pieceAlliance) {
-        super(PieceType.PAWN, piecePosition, pieceAlliance);
+        // constructor mới
+        super(PieceType.PAWN, piecePosition, pieceAlliance, true);
     }
-
+    
+    //###########################################################
+    public Pawn(int piecePosition, Alliance pieceAlliance, boolean isFirstMove) {
+        super(PieceType.PAWN, piecePosition, pieceAlliance, isFirstMove);
+    }
+    //###########################################################
+    
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
@@ -31,12 +38,13 @@ public class Pawn extends Piece{
                 //con nuoc di khac cua Pawn (thang cap quan Pawn)
                 legalMoves.add(new Move.NormalMove(board, this, candidateDestinationCoordinate));
             } else if(currentCandidateOffset == 16 && isFirstMove() &&
-                    (BoardUtils.SECOND_ROW[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
-                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.getPieceAlliance().isWhite())) {
+                    ((BoardUtils.SECOND_ROW[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
+                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && this.getPieceAlliance().isWhite()))) {
                 final int behindCandidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance.getDirection() * 8);
                 if(!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() &&
                         !board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
-                    legalMoves.add(new Move.NormalMove(board, this, candidateDestinationCoordinate));
+                    // sửa từ NormalMove thành PawnJump
+                    legalMoves.add(new Move.PawnJump(board, this, candidateDestinationCoordinate));
                 }
             } else if(currentCandidateOffset == 7 &&
                     !((BoardUtils.EIGHTH_COLUMN[this.piecePosition] && this.pieceAlliance.isWhite() ||
@@ -44,7 +52,9 @@ public class Pawn extends Piece{
                 if(board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if(this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
-                        legalMoves.add(new Move.NormalMove(board, this, candidateDestinationCoordinate));
+                        // Sửa từ NormalMove thành PawnAttackMove
+                        legalMoves.add(new Move.PawnAttackMove(
+                                board, this, candidateDestinationCoordinate, pieceOnCandidate));
                     }
                 }
             } else if(currentCandidateOffset == 9 &&
@@ -54,7 +64,9 @@ public class Pawn extends Piece{
                     final Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     if(this.pieceAlliance != pieceOnCandidate.getPieceAlliance()) {
                         //Add ham an quan
-                        legalMoves.add(new Move.NormalMove(board, this, candidateDestinationCoordinate));
+                        // Sửa y chang cái trên
+                        legalMoves.add(new Move.PawnAttackMove(
+                                board, this, candidateDestinationCoordinate, pieceOnCandidate));
                     }
                 }
             }

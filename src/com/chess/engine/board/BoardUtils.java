@@ -7,7 +7,21 @@ public class BoardUtils {
     public static final boolean[] SEVENTH_COLUMN = initColumn(6);
     public static final boolean[] EIGHTH_COLUMN = initColumn(7);
 
+    /*
+    - Mốc của các hàng(row) chạy từ bên trái sang phải. Vd:
+    0[......]
+    1[......]
+        ......
+    7[......]
+    
+    - Các row sẽ bắt đấu chạy từ trên xuống cho trùng với gridlayout 
+    */
+    public static final boolean[] FIRST_ROW = initRow(0);
     public static final boolean[] SECOND_ROW = initRow(8);
+    public static final boolean[] THIRD_ROW = initRow(16);
+    public static final boolean[] FOURTH_ROW = initRow(24);
+    public static final boolean[] FIFTH_ROW = initRow(32);
+    public static final boolean[] SIXTH_ROW = initRow(40);
     public static final boolean[] SEVENTH_ROW = initRow(48);
 
     public static final int NUM_TILES = 64;
